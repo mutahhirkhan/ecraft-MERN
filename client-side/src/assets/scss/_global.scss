@@ -1,0 +1,295 @@
+* {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+body {
+    margin: 0;
+    color: $text-color;
+}
+
+html * {
+    font-family: $font-medium;
+    scroll-behavior: smooth;
+}
+
+.b-text {
+    font-family: $font-bold;
+}
+
+button {
+    border: none;
+    background: transparent;
+    outline: none;
+    border-radius: 4px !important;
+}
+.ant-btn {
+    border-radius: 6px !important;
+}
+
+p,
+a,
+span,
+li,
+h1 {
+    font-size: $font-size-md;
+    color: $text-color;
+    font-family: $font-medium;
+}
+
+.color-text {
+    color: $text-color;
+}
+
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: $secondary;
+}
+
+mark {
+    background: transparent;
+    font-family: $font-bold;
+    color: $primary;
+    padding: 0px;
+    &.blue {
+        color: $blue;
+    }
+}
+
+a {
+    text-decoration: none;
+}
+
+img {
+    cursor: pointer;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: #2a8fff;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+}
+
+// ________________________________________________________________ FORM FEILDS STARTS FROM HERE __________________________________________________________ \\
+
+.c-text-input {
+    width: 100%;
+
+    &.h-fix {
+        min-height: 98px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    .ant-form-item-control {
+        width: 100%;
+        max-width: unset;
+        flex-grow: unset;
+    }
+    input {
+        width: 100%;
+        box-shadow: $shadow;
+        border-radius: 25px;
+        background-color: #fff !important;
+        border: none;
+        padding: 7px 18px;
+        margin-bottom: 0;
+
+        &:focus {
+            border: none;
+            border-color: transparent;
+            box-shadow: $shadow !important;
+        }
+    }
+}
+.c-pass-input {
+    width: 100%;
+
+    &.h-fix {
+        min-height: 98px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        margin-bottom: 0;
+    }
+    .ant-form-item-control {
+        width: 100%;
+        max-width: unset;
+        flex-grow: unset;
+    }
+    .ant-input-affix-wrapper.ant-input-password {
+        border-color: transparent;
+    }
+
+    .ant-input-affix-wrapper {
+        width: 100%;
+        color: $text-color;
+        background-color: #fff;
+        border-radius: 25px;
+        box-shadow: $shadow;
+        padding: 7px 18px;
+
+        &:focus {
+            border: none;
+            border-color: unset;
+            box-shadow: $shadow;
+        }
+
+        &:hover {
+            border-color: transparent;
+            box-shadow: $shadow;
+        }
+    }
+}
+
+// custom date picker
+.c-date-picker {
+    .ant-picker {
+        font-size: $font-size-sm;
+        border: none !important;
+        border-radius: 100px !important;
+        // box-shadow: $theme-shadow !important;
+        background: #ffffff !important;
+        // box-shadow: 0 0 10px $shadow !important;
+        box-shadow: $shadow;
+        width: 300px;
+        height: 36px !important;
+        margin: 0;
+        input {
+            font-size: $font-size-sm;
+            font-family: $font-medium;
+            // box-shadow: none !important;
+            border: none !important;
+            height: 35px;
+        }
+    }
+    .ant-picker-lg {
+        width: 300px;
+    }
+    .ant-picker-md {
+        width: 200px;
+    }
+    .ant-picker-sm {
+        width: 140px;
+    }
+    .ant-picker-xs {
+        width: 100px;
+    }
+}
+.ant-picker-header {
+    button {
+        padding: 0 12px !important;
+        span {
+            color: $grey !important;
+        }
+    }
+    .ant-picker-header-view {
+        button {
+            color: $grey !important;
+        }
+    }
+}
+
+// ___________________________________________________________________FORM FEILDS ENDS  HERE _______________________________________________________________ \\
+
+.ant-select {
+    width: 300px !important;
+    z-index: 40 !important;
+
+    .ant-select-dropdown {
+        padding-top: 40px;
+        top: 0px !important;
+        z-index: -1 !important;
+        border-radius: 16px;
+        .ant-select-item-option-content {
+            font-size: $font-size-sm;
+        }
+    }
+
+    &.ant-select-multiple {
+        .ant-select-selection-item {
+            height: 26px;
+            line-height: 25px;
+            margin-top: 0;
+            margin-bottom: 0px;
+            border-radius: 25px;
+        }
+
+        .ant-select-selection-overflow-item {
+            opacity: 0;
+        }
+        .ant-select-selector {
+            padding-left: 5px !important;
+            input {
+                box-shadow: none !important;
+                padding: 0 0px !important;
+            }
+        }
+        .ant-select-selection-item-remove > .anticon {
+            vertical-align: unset;
+        }
+    }
+
+    .ant-select-selector {
+        font-size: $font-size-sm;
+        border: none !important;
+        box-shadow: 0 0 10px #bdbdbd !important;
+        border-radius: 100px !important;
+        height: 36px !important;
+        padding: 0 18px !important;
+        background: #ffffff !important;
+
+        input {
+            box-shadow: none !important;
+            padding: 0 6px !important;
+        }
+
+        .ant-select-selection-placeholder {
+            line-height: 36px !important;
+            font-size: 12px;
+        }
+    }
+    .ant-select-arrow {
+        right: 15px;
+    }
+    .ant-select-clear {
+        height: 20px;
+        width: 20px;
+        top: 40%;
+    }
+}
+
+.ant-select-single {
+    .ant-select-selector {
+        .ant-select-selection-item {
+            line-height: 35px;
+            font-size: 12px;
+        }
+    }
+}
+.select-w100 {
+    .ant-select {
+        width: 100% !important;
+    }
+}
+.scroll-unset-select{
+    scroll-behavior: unset !important;
+    & *{
+        scroll-behavior: unset !important;
+
+    }
+}
