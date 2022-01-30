@@ -13,6 +13,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Email from "@material-ui/icons/Email";
 import Check from "@material-ui/icons/Check";
 import Face from "@material-ui/icons/Face";
+import { FormControl, InputLabel, MenuItem, Select } from "@material-ui/core";
 
 // core components
 import GridContainer from "./../../components/Grid/GridContainer.jsx";
@@ -25,23 +26,46 @@ import CardHeader from "./../../components/Card/CardHeader.jsx";
 import CardFooter from "./../../components/Card/CardFooter.jsx";
 
 import registerPageStyle from "./../../assets/jss/material-dashboard-react/views/registerPageStyle.jsx";
+import { useAppDispatch, useAppSelector } from "../../store/hooks.js";
+import { signup as signupAPI } from "./thunk.js";
+import { selectLoginResponse } from "./slice.js";
+import { useHistory } from "react-router";
 
-const { REACT_APP_SERVER_URL } = process.env;
+// const { REACT_APP_SERVER_URL } = process.env;
 
-class RegisterPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      checked: [],
-      errors: {}
-    };
-  }
-  register = async e => {
+const RegisterPage = (props) =>  {
+  const { classes } = props;
+  const [checked, setCheck] = React.useState([]);
+  const [errors, setErrors] = React.useState({});
+  const [role, setRole] = React.useState("");
+  //role state
+  const history = useHistory()
+  const dispatch = useAppDispatch();  
+  const userProfile = useAppSelector(selectLoginResponse)
+  // constructor(props) {
+  //   super(props);
+  //   state = {
+  //     checked: [],
+  //     errors: {}
+  //   };
+  // }
+
+  React.useEffect(() => {
+    console.log("userProfile", userProfile);
+  }, [userProfile]);
+
+  const handleChange = event => {
+    setRole(event.target.value);
+  };
+
+
+  const register = async e => {
     e.preventDefault();
+    console.log("e");
+    console.log(["username","email", "getPassword", "confirmPassword","role"].map(el => e.target.elements.namedItem(el).value));
 
-    const { history } = this.props;
 
-    const fields = ["name", "username", "password"];
+    const fields = ["username","email", "getPassword", "confirmPassword","role"];
     const formElements = e.target.elements;
 
     const formValues = fields
@@ -50,14 +74,25 @@ class RegisterPage extends React.Component {
       }))
       .reduce((current, next) => ({ ...current, ...next }));
 
+      /**
+       * "username": "user2",
+    "email": "user2@gmail.com",
+    "password": "pass123pass123",
+    "confirmPassword": "pass123pass123",
+    "role": "buyer"
+       */
     let registerRequest;
     try {
-      registerRequest = await axios.post(
-        `http://${REACT_APP_SERVER_URL}/register`,
-        {
-          ...formValues
-        }
-      );
+      const {getPassword, ...restProps} = formValues
+      const payload = {
+        ...restProps,
+        password: getPassword,
+      }
+      
+      console.log(payload);
+      dispatch(signupAPI(payload));
+      // registerRequest = await axios.post(`http://${REACT_APP_SERVER_URL}/register`, {...formValues});
+
     } catch ({ response }) {
       registerRequest = response;
     }
@@ -65,14 +100,14 @@ class RegisterPage extends React.Component {
     if (registerRequestData.success) {
       return history.push("/login");
     }
-
-    this.setState({
-      errors:
-        registerRequestData.messages && registerRequestData.messages.errors
-    });
+    setErrors(registerRequestData.messages.errors)
+    // setState({
+    //   errors:
+    //     registerRequestData.messages && registerRequestData.messages.errors
+    // });
   };
-  handleToggle = value => {
-    const { checked } = this.state;
+  const handleToggle = value => {
+    // const { checked } = state;
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -81,20 +116,18 @@ class RegisterPage extends React.Component {
     } else {
       newChecked.splice(currentIndex, 1);
     }
-
-    this.setState({
-      checked: newChecked
-    });
+    setCheck(newChecked);
+    // setState({
+    //   checked: newChecked
+    // });
   };
-  render() {
-    const { classes } = this.props;
-    const { errors } = this.state;
+
     return (
       <div className={classes.container}>
         <GridContainer justify="center">
           <GridItem xs={12} sm={6} md={4}>
-            <form onSubmit={this.register}>
-              <Card className={classes[this.state.cardAnimaton]}>
+            <form onSubmit={register}>
+              <Card className={classes["state.cardAnimaton"]}>
                 <CardHeader
                   className={`${classes.cardHeader} ${classes.textCenter}`}
                   color="primary"
@@ -121,8 +154,9 @@ class RegisterPage extends React.Component {
                 </CardHeader>
                 <CardBody>
                   <p className={classes.cardDescription}>Or Be Classical</p>
+                  {/* username */}
                   <CustomInput
-                    labelText="Name..."
+                    labelText="Username..."
                     id="name"
                     formControlProps={{
                       fullWidth: true,
@@ -130,7 +164,8 @@ class RegisterPage extends React.Component {
                     }}
                     inputProps={{
                       required: true,
-                      name: "name",
+                      name: "username",
+                      type: "text",
                       endAdornment: (
                         <InputAdornment position="end">
                           <Face className={classes.inputAdornmentIcon} />
@@ -138,6 +173,7 @@ class RegisterPage extends React.Component {
                       )
                     }}
                   />
+                  {/* email */}
                   <CustomInput
                     labelText="Email..."
                     id="email"
@@ -149,7 +185,7 @@ class RegisterPage extends React.Component {
                     inputProps={{
                       required: true,
                       type: "email",
-                      name: "username",
+                      name: "email",
                       endAdornment: (
                         <InputAdornment position="end">
                           <Email className={classes.inputAdornmentIcon} />
@@ -157,6 +193,7 @@ class RegisterPage extends React.Component {
                       )
                     }}
                   />
+                  {/* password */}
                   <CustomInput
                     labelText="Password..."
                     id="password"
@@ -167,7 +204,7 @@ class RegisterPage extends React.Component {
                     error={errors.password}
                     inputProps={{
                       required: true,
-                      name: "password",
+                      name: "getPassword",
                       type: "password",
                       endAdornment: (
                         <InputAdornment position="end">
@@ -178,6 +215,70 @@ class RegisterPage extends React.Component {
                       )
                     }}
                   />
+                  {/*confirm  password */}
+                  <CustomInput
+                    labelText="Confirm Password..."
+                    id="password"
+                    formControlProps={{
+                      fullWidth: true,
+                      className: classes.formControlClassName
+                    }}
+                    error={errors.password}
+                    inputProps={{
+                      required: true,
+                      name: "confirmPassword",
+                      type: "password",
+                      endAdornment: (
+                        <InputAdornment position="end">
+                          <Icon className={classes.inputAdornmentIcon}>
+                            lock_outline
+                          </Icon>
+                        </InputAdornment>
+                      )
+                    }}
+                  />
+                  {/* role */}
+                  <FormControl
+                    fullWidth
+                    className={classes.selectFormControl}
+                  >
+                    <InputLabel htmlFor="simple-select" className={classes.selectLabel}>
+                      Role
+                    </InputLabel>
+                    <Select
+                      MenuProps={{className: classes.selectMenu}}
+                      classes={{select: classes.select}}
+                      value={role}
+                      onChange={handleChange}
+                      inputProps={{name: "role",id: "simple-select"}}
+                    >
+                      <MenuItem
+                        disabled
+                        classes={{ root: classes.selectMenuItem}}
+                      >
+                        Role
+                      </MenuItem>
+                      <MenuItem
+                        classes={{
+                          root: classes.selectMenuItem,
+                          selected: classes.selectMenuItemSelected
+                        }}
+                        value="buyer"
+                      >
+                        Buyer
+                      </MenuItem>
+                      <MenuItem
+                        classes={{
+                          root: classes.selectMenuItem,
+                          selected: classes.selectMenuItemSelected
+                        }}
+                        value="artist"
+                      >
+                        Artist
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
+                  {/* terms and conditions */}
                   <FormControlLabel
                     classes={{
                       root:
@@ -189,7 +290,7 @@ class RegisterPage extends React.Component {
                     control={
                       <Checkbox
                         tabIndex={-1}
-                        onClick={() => this.handleToggle(1)}
+                        onClick={() => handleToggle(1)}
                         checkedIcon={<Check className={classes.checkedIcon} />}
                         icon={<Check className={classes.uncheckedIcon} />}
                         required
@@ -217,7 +318,6 @@ class RegisterPage extends React.Component {
         </GridContainer>
       </div>
     );
-  }
 }
 
 RegisterPage.propTypes = {

@@ -1,6 +1,6 @@
 import { createSlice, isPending, isRejected, isFulfilled } from "@reduxjs/toolkit";
 
-import { login } from "./thunk";
+import { login, signup } from "./thunk";
 
 const initialState = {
   status: "idle",
@@ -11,7 +11,8 @@ const initialState = {
 };
 
 var thunks = [
-  login
+  login,
+  signup,
 ]
 
 export const slice = createSlice({
@@ -25,7 +26,11 @@ export const slice = createSlice({
       state.loginSuccess = true;
       state.loginResponse = action.payload.user;
     })
-   
+    .addCase(signup.fulfilled, (state, action) => {
+      state.status = "success";
+      state.loginSuccess = true;
+      state.loginResponse = action.payload.user;
+    })   
     .addMatcher(isPending(...thunks), (state) => {
       state.status = "loading";
       // state.taskCreatedSuccess = false;
