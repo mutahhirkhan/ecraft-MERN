@@ -74,7 +74,10 @@ const LoginPage = (props) => {
     }
   };
   React.useEffect(() => {
-    console.log("userProfile", userProfile);
+    // console.log("userProfile", userProfile);
+    if(userProfile){
+      // history.push("/dashboard")
+    }
   }, [userProfile]);
 
   const handleToggle = value => {
