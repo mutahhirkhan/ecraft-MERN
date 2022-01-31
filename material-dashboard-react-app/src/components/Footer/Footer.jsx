@@ -36,7 +36,7 @@ function Footer({ ...props }) {
             </ListItem>
           </List>
         </div>
-        <p className={classes.right}>
+        {/* <p className={classes.right}>
           <span>
             &copy; {1900 + new Date().getYear()} made with love, by{" "}
             <a href="https://www.creative-tim.com" className={classes.a}>
@@ -48,7 +48,7 @@ function Footer({ ...props }) {
             </a>{" "}
             for a better web
           </span>
-        </p>
+        </p> */}
       </div>
     </footer>
   );
