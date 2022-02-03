@@ -27,8 +27,11 @@ import loginPageStyle from "./../../assets/jss/material-dashboard-react/views/lo
 import { useHistory } from "react-router";
 import { useAppDispatch, useAppSelector } from './../../store/hooks';
 import {login as loginAPI } from "./thunk"
-import { selectLoginResponse } from './slice';
-
+import { selectlogin, selectLoginResponse, selectloginStatus, selectloginError, selectloginResponseMessage } from './slice';
+import { showErrorMessage, showSuccessMessage } from './../../utils/message';
+import { message } from 'antd';
+// import "./LoginPage.css";
+// import "./../../assets/css/material-dashboard-react.css";
 const { REACT_APP_SERVER_URL } = process.env;
 
 const LoginPage = (props) => {
@@ -36,11 +39,17 @@ const LoginPage = (props) => {
   const history = useHistory();
   const dispatch = useAppDispatch();
   const userProfile = useAppSelector(selectLoginResponse)
+  const loginStatusString = useAppSelector(selectloginStatus)
+  const loginStatus = useAppSelector(selectlogin)
+  const loginError = useAppSelector(selectloginError)
+  const loginErrorMessage = useAppSelector(selectloginResponseMessage)
+
 
 
   // const { errors } = state;
   const [checked, setCheck] = React.useState([]);
   const [errors, setErrors] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
   
   // constructor(props) {
   //   super(props);
@@ -50,6 +59,8 @@ const LoginPage = (props) => {
   //   };
   // }
   const login = async e => {
+    setLoading(true)
+    showErrorMessage()
     e.preventDefault();
 
     // const { history } = props;
@@ -70,12 +81,49 @@ const LoginPage = (props) => {
       // console.log(data);
       // console.log(res.json());
     } catch (error) {
+        setLoading(false)
         console.log(error);
     }
   };
   React.useEffect(() => {
-    console.log("userProfile", userProfile);
+    console.log("loading");
+    console.log(loading);
+  },[loading])
+
+  //useeffect
+  React.useEffect(() => {
+    // console.log("userProfile", userProfile);
+    // let token = localStorage.getItem("token") ;
+    // if(userProfile.token &&  ( token !== "undefined" || userProfile.token !== undefined))  {
+    //   console.log('here');
+    //   setLoading(false)
+    //   localStorage.setItem("token", userProfile.token);
+    //   history.push("/dashboard")
+    // }
+    // else{
+    //   showErrorMessage("We are having some trouble, try Logging in again")
+
+    // }
   }, [userProfile]);
+  
+  React.useEffect(() => {
+    let hide = showErrorMessage("loginErrorMessage",0)
+    hide()
+    
+  },[])
+
+  React.useEffect(() => {
+    localStorage.getItem("token") && history.push("/dashboard");
+    console.log("loginError)_____", loginError);
+    if(loginError)  showErrorMessage(loginErrorMessage) 
+
+    if(loginStatus) {
+      showSuccessMessage("Login Successful")
+      localStorage.setItem("token", userProfile.token);
+      history.push("/dashboard");
+    }
+  } , [loginStatus, loginError])
+
 
   const handleToggle = value => {
     // const { checked } = state;
@@ -197,7 +245,7 @@ const LoginPage = (props) => {
                   />
                 </CardBody>
                 <CardFooter className={classes.justifyContentCenter}>
-                  <Button type="submit" color="primary" simple size="lg" block>
+                  <Button loading={loading} loadingPosition="start" type="submit" color="primary" simple size="lg" block>
                     Let's Go
                   </Button>
                 </CardFooter>

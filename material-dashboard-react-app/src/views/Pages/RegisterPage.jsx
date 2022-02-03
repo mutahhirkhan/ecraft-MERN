@@ -28,7 +28,8 @@ import CardFooter from "./../../components/Card/CardFooter.jsx";
 import registerPageStyle from "./../../assets/jss/material-dashboard-react/views/registerPageStyle.jsx";
 import { useAppDispatch, useAppSelector } from "../../store/hooks.js";
 import { signup as signupAPI } from "./thunk.js";
-import { selectLoginResponse } from "./slice.js";
+import { selectlogin, selectLoginResponse, selectloginStatus, selectloginError, selectloginResponseMessage } from './slice';
+import { showErrorMessage, showSuccessMessage } from './../../utils/message';
 import { useHistory } from "react-router";
 
 // const { REACT_APP_SERVER_URL } = process.env;
@@ -42,6 +43,10 @@ const RegisterPage = (props) =>  {
   const history = useHistory()
   const dispatch = useAppDispatch();  
   const userProfile = useAppSelector(selectLoginResponse)
+  const loginStatusString = useAppSelector(selectloginStatus)
+  const loginStatus = useAppSelector(selectlogin)
+  const loginError = useAppSelector(selectloginError)
+  const loginErrorMessage = useAppSelector(selectloginResponseMessage)
   // constructor(props) {
   //   super(props);
   //   state = {
@@ -58,6 +63,19 @@ const RegisterPage = (props) =>  {
     setRole(event.target.value);
   };
 
+
+  
+  React.useEffect(() => {
+    localStorage.getItem("token") && history.push("/dashboard");
+    console.log("loginError)_____", loginError);
+    if(loginError)  showErrorMessage(loginErrorMessage) 
+
+    if(loginStatus) {
+      showSuccessMessage("Login Successful")
+      localStorage.setItem("token", userProfile.token);
+      history.push("/dashboard");
+    }
+  } , [loginStatus, loginError])
 
   const register = async e => {
     e.preventDefault();

@@ -37,15 +37,17 @@ const styles = {
 
 const { REACT_APP_SERVER_URL } = process.env;
 
-class UserProfile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      errors: {}
-    };
-    this.updateProfile = this.updateProfile.bind(this);
-  }
-  async updateProfile(e) {
+const UserProfile= ({ classes, name, email }) => {
+  // const { classes, name, email } = this.props;
+  const [error, setError] = useState({});
+  // constructor(props) {
+  //   super(props);
+  //   this.state = {
+  //     errors: {}
+  //   };
+  //   this.updateProfile = this.updateProfile.bind(this);
+  // }
+  async function updateProfile(e) {
     e.preventDefault();
 
     const fields = ["name", "username"];
@@ -72,21 +74,15 @@ class UserProfile extends React.Component {
     }
     const { data: registerRequestData } = registerRequest;
 
-    if (!registerRequestData.success) {
-      this.setState({
-        errors:
-          registerRequestData.messages && registerRequestData.messages.errors
-      });
-    }
+    if (!registerRequestData.success) 
+      registerRequestData.messages && setError( registerRequestData.messages.errors);
   }
-  render() {
-    const { classes, name, email } = this.props;
-    const { errors } = this.state;
+
     return (
       <div>
         <GridContainer>
           <GridItem xs={12} sm={12} md={8}>
-            <form onSubmit={this.updateProfile}>
+            <form onSubmit={updateProfile}>
               <Card>
                 <CardHeader color="primary">
                   <h4 className={classes.cardTitleWhite}>Edit Profile</h4>
@@ -160,7 +156,6 @@ class UserProfile extends React.Component {
         </GridContainer>
       </div>
     );
-  }
 }
 
 UserProfile.propTypes = {

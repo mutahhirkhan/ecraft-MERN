@@ -23,6 +23,7 @@ function RegularButton({ ...props }) {
     justIcon,
     className,
     muiClasses,
+    loading,
     ...rest
   } = props;
   const btnClasses = classNames({
@@ -38,7 +39,7 @@ function RegularButton({ ...props }) {
     [className]: className
   });
   return (
-    <Button {...rest} classes={muiClasses} className={btnClasses}>
+    <Button {...rest} loading={loading} classes={muiClasses} className={btnClasses}>
       {children}
     </Button>
   );

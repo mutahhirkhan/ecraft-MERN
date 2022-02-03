@@ -1,19 +1,19 @@
 import { message } from "antd";
 
 export const showErrorMessage = (content) => {
-  message.error({
+  return message.error({
     content,
   });
 };
 
 export const showSuccessMessage = (content) => {
-  message.success({
+  return  message.success({
     content,
   });
 };
 
 export const showWarningMessage = (content) => {
-  message.warning({
+  return  message.warning({
     content,
   });
 };

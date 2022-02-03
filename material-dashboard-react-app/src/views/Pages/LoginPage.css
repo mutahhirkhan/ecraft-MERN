@@ -1,0 +1,49 @@
+.ant-message{
+    /* position: absolute;
+    top: 0; */
+    /* left: initial; */
+    /* width: 100%; */
+    /* z-index: 9999; */
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: #000000;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 16px;
+    font-variant: tabular-nums;
+    line-height: 1.5715;
+    list-style: none;
+    font-feature-settings: "tnum";
+    position: fixed;
+    top: 8px;
+    left: 0;
+    z-index: 99999;
+    width: 100%;
+    pointer-events: none;
+}
+.ant-message-notice {
+    padding: 8px;
+    text-align: center;
+}
+.ant-message-notice-content {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    background: #fff;
+        box-shadow: 0 3px 6px -4px #0000001f, 0 6px 16px #00000014, 0 9px 28px 8px #0000000d;
+    pointer-events: all;
+}
+.anticon {
+    margin: 0 10px 0 0;
+
+}
+.anticon-close-circle {
+    color: #d9363e;
+}
+.anticon-check-circle{
+    color: #52c411;
+}
+.anticon-exclamation-circle{
+    color: #faad14;
+}

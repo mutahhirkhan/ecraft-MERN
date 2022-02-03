@@ -12,8 +12,16 @@ import { login as loginAPI, signup as singupAPI } from "./service";
 
 export const login = createAsyncThunk("login/user", async (payload) => {
     const response = await loginAPI(payload);
-    return response.data;
+    // console.log("response", response);
+    
+    // localStorage.setItem("token", response.token);
+
+    // let token = localStorage.getItem("token")
+    // console.log(token);
+    
+    return response;
 });
+
 export const signup = createAsyncThunk("signup/user", async (payload) => {
     const response = await singupAPI(payload);
     return response.data;

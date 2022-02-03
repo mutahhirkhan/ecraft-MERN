@@ -12,9 +12,9 @@ const instance = axios.create({
 interceptor(instance);
 
 const request = async ({ method, url, data, headers, skipAuth }) => {
-    if (method === "delete") {
-        data = { data };
-    }
+    // if (method === "delete") {
+    //     data = { data };
+    // }
     const promise = instance[method](url, data);
     try {
         const response = await promise;
@@ -28,11 +28,12 @@ const request = async ({ method, url, data, headers, skipAuth }) => {
 
         return payload;
     } catch (err) {
-        let msg = err.response?.data?.message;
+        let msg = err.response?.data?.error;
         if (err.response?.data?.details) {
             msg = err.response.data.details.message;
         }
         console.log(new Error(msg));
+        return new Error(msg) 
         // throw new Error(msg);
     }
 };
