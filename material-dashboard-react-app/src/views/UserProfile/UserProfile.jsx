@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 // @material-ui/core components
@@ -39,7 +39,7 @@ const { REACT_APP_SERVER_URL } = process.env;
 
 const UserProfile= ({ classes, name, email }) => {
   // const { classes, name, email } = this.props;
-  const [error, setError] = useState({});
+  const [errors, setError] = useState({});
   // constructor(props) {
   //   super(props);
   //   this.state = {

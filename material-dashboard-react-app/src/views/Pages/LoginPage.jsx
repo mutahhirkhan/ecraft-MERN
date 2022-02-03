@@ -74,37 +74,10 @@ const LoginPage = (props) => {
       }))
       .reduce((current, next) => ({ ...current, ...next }));
 
-    try {
-      console.log(formValues);
-      dispatch(loginAPI(formValues));
-      const {data} = await axios.get("http://localhost:8000/api/v1/arts/testing");
-      // console.log(data);
-      // console.log(res.json());
-    } catch (error) {
-        setLoading(false)
-        console.log(error);
-    }
+    dispatch(loginAPI(formValues));
+    setLoading(false)
   };
-  React.useEffect(() => {
-    console.log("loading");
-    console.log(loading);
-  },[loading])
 
-  //useeffect
-  React.useEffect(() => {
-    // console.log("userProfile", userProfile);
-    // let token = localStorage.getItem("token") ;
-    // if(userProfile.token &&  ( token !== "undefined" || userProfile.token !== undefined))  {
-    //   console.log('here');
-    //   setLoading(false)
-    //   localStorage.setItem("token", userProfile.token);
-    //   history.push("/dashboard")
-    // }
-    // else{
-    //   showErrorMessage("We are having some trouble, try Logging in again")
-
-    // }
-  }, [userProfile]);
   
   React.useEffect(() => {
     let hide = showErrorMessage("loginErrorMessage",0)
