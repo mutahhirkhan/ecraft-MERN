@@ -3,6 +3,7 @@ import { combineReducers, configureStore, getDefaultMiddleware } from "@reduxjs/
 
 // import dashboardReducer from "./../features/dashboards/slice";
 import loginReducer from "./../views/Pages/slice";
+import dashboardReducer from "./../views/Dashboard/slice";
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from "redux-persist";
 
 const persistConfig = {
@@ -14,8 +15,8 @@ const persistConfig = {
 
 const reducers = combineReducers({
     login: loginReducer,
+    dashboard: dashboardReducer,
     // signIn: signInReducer,
-    // dashboard: dashboardReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, reducers);

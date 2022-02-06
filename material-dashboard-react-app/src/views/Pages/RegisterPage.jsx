@@ -67,7 +67,6 @@ const RegisterPage = (props) =>  {
   
   React.useEffect(() => {
     localStorage.getItem("token") && history.push("/dashboard");
-    console.log("loginError)_____", loginError);
     if(loginError)  showErrorMessage(loginErrorMessage) 
 
     if(loginStatus) {

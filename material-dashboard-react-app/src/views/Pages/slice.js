@@ -16,7 +16,17 @@ var thunks = [login, signup];
 export const slice = createSlice({
     name: "login",
     initialState,
-    reducers: {},
+    reducers: {
+        updateProfile: (state, action) => {
+            console.log("updateProfile");
+            console.log(action.payload);
+            
+            let data = action.payload;
+            console.log(data);
+            state.loginResponse = {...state.loginResponse, ...data};
+        }
+
+    },
     extraReducers: (builder) => {
         builder
             .addCase(login.fulfilled, (state, action) => {
@@ -73,6 +83,6 @@ export const selectloginResponseStatus = (state) => state.login.responseStatus;
 export const selectLoginResponse = (state) => state.login.loginResponse;
 // export const selectStatus = (state) => state.login.status;
 
-// export const { getProfile } = slice.actions;
+export const { updateProfile,  } = slice.actions;
 
 export default slice.reducer;

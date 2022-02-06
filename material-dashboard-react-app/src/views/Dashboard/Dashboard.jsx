@@ -35,6 +35,7 @@ import { bugs, website, server } from "./../../variables/general.jsx";
 import { dailySalesChart, emailsSubscriptionChart, completedTasksChart } from "./../../variables/charts.jsx";
 
 import dashboardStyle from "./../../assets/jss/material-dashboard-react/views/dashboardStyle.jsx";
+import ArtCard from './../../components/ArtCard/ArtCard';
 
 class Dashboard extends React.Component {
     state = {
@@ -128,7 +129,7 @@ class Dashboard extends React.Component {
                     </GridItem>
                 </GridContainer>
                 <GridContainer>
-                    <GridItem xs={12} sm={12} md={4}>
+                    {/* <GridItem xs={12} sm={12} md={4}>
                         <Card chart>
                             <CardHeader color="success">
                                 <ChartistGraph
@@ -137,7 +138,10 @@ class Dashboard extends React.Component {
                                     type="Line"
                                     options={dailySalesChart.options}
                                     listener={dailySalesChart.animation}
+ 
+     
                                 />
+                                
                             </CardHeader>
                             <CardBody>
                                 <h4 className={classes.cardTitle}>Daily Sales</h4>
@@ -154,7 +158,9 @@ class Dashboard extends React.Component {
                                 </div>
                             </CardFooter>
                         </Card>
-                    </GridItem>
+                    </GridItem> */}
+                    <ArtCard classes={classes}/>
+
                     <GridItem xs={12} sm={12} md={4}>
                         <Card chart>
                             <CardHeader color="warning">
