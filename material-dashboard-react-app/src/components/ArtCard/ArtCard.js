@@ -22,28 +22,26 @@ const ArtCard = ({ classes }) => {
                             vertical: "top",
                             horizontal: "right",
                         }}>
-                        <FavoriteIcon />
-                        <CardHeader color="success">
-                            {/* <ChartistGraph
-                                    className="ct-chart"
-                                    data={dailySalesChart.data}
-                                    type="Line"
-                                    options={dailySalesChart.options}
-                                    listener={dailySalesChart.animation}
- 
-     
-                                /> */}
+                        <CardHeader>
+                            <img src="https://firebasestorage.googleapis.com/v0/b/onlinelect.appspot.com/o/cards%2Fimg-0cbd386d-42c5-4046-a088-7ff351b06233?alt=media&token=e037d7a5-c9ff-42e3-9c70-19598afd4457" height={300} width={400} />
                         </CardHeader>
                     </Badge>
 
                     <CardBody>
-                        <h4 className={classes.cardTitle}>Daily Sales</h4>
+                        <h1 className={classes.cardTitle}>First Art</h1>
+                        <div style={{display:'flex' ,justifyContent:'space-between'}}>
+                            <FavoriteIcon />
+                            <h4>Cost : <span>$20000</span></h4>
+                        </div>
                         <p className={classes.cardCategory}>
                             <span className={classes.successText}>
-                                <ArrowUpward className={classes.upArrowCardCategory} /> 55%
+                                <ArrowUpward className={classes.upArrowCardCategory} /> 1
                             </span>{" "}
-                            increase in today sales.
+                            No of Likes
                         </p>
+                        <div>
+                            <h1>Revie</h1>
+                        </div>
                     </CardBody>
                     <CardFooter chart>
                         <div className={classes.stats}>
