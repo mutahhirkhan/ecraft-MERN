@@ -17,19 +17,19 @@ export const slice = createSlice({
     name: "dashboard",
     initialState,
     reducers: {
-        updateProfile: (state, action) => {
-            console.log("updateProfile");
-            console.log(action.payload);
+        // updateProfile: (state, action) => {
+        //     console.log("updateProfile");
+        //     console.log(action.payload);
             
-            let data = action.payload;
-            console.log(data);
-            state.loginResponse = {...state.loginResponse, ...data};
-        }
+        //     let data = action.payload;
+        //     console.log(data);
+        //     state.fetchResponse = {...state.loginResponse, ...data};
+        // }
 
     },
     extraReducers: (builder) => {
         builder
-            .addCase(login.fulfilled, (state, action) => {
+            .addCase(arts.fulfilled, (state, action) => {
                 state.status = "success";
                 
                 if(action.payload.message) {
@@ -40,10 +40,10 @@ export const slice = createSlice({
                 }
 
                 else {
-                  state.loginSuccess = true;
+                  state.fetchSuccess = true;
                   let {data, token} = action.payload;
-                  state.loginResponse = {...data.user, token};
-                  state.loginError= null;
+                  state.fetchResponse = {...data.user, token};
+                  state.fetchError= null;
                   state.responseStatus = true;
                 }
             })
