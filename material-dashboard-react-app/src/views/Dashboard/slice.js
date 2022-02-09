@@ -6,7 +6,7 @@ const initialState = {
     status: "idle",
     fetchStatus: false,
     fetchSuccess: false,
-    fetchResponse: {},
+    fetchResponse: [],
     responseMessage:"",
     fetchError: null,
 };
@@ -35,14 +35,14 @@ export const slice = createSlice({
                 if(action.payload.message) {
                   state.fetchError = true;
                   state.fetchStatus = false;
-                  state.fetchResponse = {};
+                  state.fetchResponse = [];
                   state.responseMessage = action.payload.message;
                 }
 
                 else {
                   state.fetchSuccess = true;
-                  let {data, token} = action.payload;
-                  state.fetchResponse = {...data.user, token};
+                  let {arts} = action.payload;
+                  state.fetchResponse = arts;
                   state.fetchError= null;
                   state.responseStatus = true;
                 }
@@ -54,14 +54,14 @@ export const slice = createSlice({
                 state.fetchSuccess = false;
                 state.fetchError = true;
                 state.fetchStatus = false;
-                state.fetchResponse = {};
+                state.fetchResponse = [];
             })
             .addMatcher(isRejected(...thunks), (state, action) => {
                 console.log("rejected");
                 state.status = "failed";
                 state.fetchError = true;
                 state.fetchStatus = false;
-                state.fetchResponse = {};
+                state.fetchResponse = [];
                 state.fetchSuccess = false;
             });
     },

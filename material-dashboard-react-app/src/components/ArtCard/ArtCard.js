@@ -9,29 +9,43 @@ import FavoriteIcon from "@material-ui/icons/Favorite";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
 import { Badge } from "@material-ui/core";
+import ImageSlider from './../ImageSlider/ImageSlider';
+import ArtLoader from "./../ArtLoader/ArtLoader";
 
-const ArtCard = ({ classes }) => {
+const ArtCard = ({ classes, arts=[] }) => {
+    const [loading, setLoading] = React.useState(true);
+    console.log(arts);
+    React.useEffect(() => {
+        setTimeout(() => {
+            if(arts.length > 0 ) setLoading(false);
+        }, 1000);
+    },[arts.length])
+
     return (
         <>
+        { loading 
+        ? arts.map(art => <ArtLoader/>) 
+        : arts.map((art, index) => 
             <GridItem xs={12} sm={12} md={4}>
                 <Card chart>
                     <Badge
-                        color="secondary"
-                        badgeContent={99}
+                        color="primary"
+                        badgeContent={"$ 99"}
                         anchorOrigin={{
                             vertical: "top",
                             horizontal: "right",
                         }}>
                         <CardHeader>
-                            <img src="https://firebasestorage.googleapis.com/v0/b/onlinelect.appspot.com/o/cards%2Fimg-0cbd386d-42c5-4046-a088-7ff351b06233?alt=media&token=e037d7a5-c9ff-42e3-9c70-19598afd4457" height={300} width={400} />
+                        <ImageSlider slides={art.gallery || [] }/>
+                            {/* <img src="https://firebasestorage.googleapis.com/v0/b/onlinelect.appspot.com/o/cards%2Fimg-0cbd386d-42c5-4046-a088-7ff351b06233?alt=media&token=e037d7a5-c9ff-42e3-9c70-19598afd4457" height={300} width={400} /> */}
                         </CardHeader>
                     </Badge>
 
                     <CardBody>
                         <h1 className={classes.cardTitle}>First Art</h1>
                         <div style={{display:'flex' ,justifyContent:'space-between'}}>
-                            <FavoriteIcon />
-                            <h4>Cost : <span>$20000</span></h4>
+                            {/* <FavoriteIcon /> */}
+                            {/* <h4>Cost : <span>$20000</span></h4> */}
                         </div>
                         <p className={classes.cardCategory}>
                             <span className={classes.successText}>
@@ -50,6 +64,8 @@ const ArtCard = ({ classes }) => {
                     </CardFooter>
                 </Card>
             </GridItem>
+        )}
+
         </>
     );
 };
