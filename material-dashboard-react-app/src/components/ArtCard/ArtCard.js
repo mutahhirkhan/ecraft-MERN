@@ -27,7 +27,7 @@ const ArtCard = ({ classes, arts=[] }) => {
         ? arts.map(art => <ArtLoader/>) 
         : arts.map((art, index) => 
             <GridItem xs={12} sm={12} md={4}>
-                <Card chart>
+                <Card chart style={{width: "100%"}}>
                     <Badge
                         color="primary"
                         badgeContent={"$ 99"}

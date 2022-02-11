@@ -66,13 +66,13 @@ const RegisterPage = (props) =>  {
 
   
   React.useEffect(() => {
-    localStorage.getItem("token") && history.push("/dashboard");
+    localStorage.getItem("token") && history.push("/user");
     if(loginError)  showErrorMessage(loginErrorMessage) 
 
     if(loginStatus) {
       showSuccessMessage("Login Successful")
       localStorage.setItem("token", userProfile.token);
-      history.push("/dashboard");
+      history.push("/user");
     }
   } , [loginStatus, loginError])
 

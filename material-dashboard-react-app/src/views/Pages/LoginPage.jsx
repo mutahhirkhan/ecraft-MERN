@@ -80,20 +80,20 @@ const LoginPage = (props) => {
 
   
   React.useEffect(() => {
-    let hide = showErrorMessage("loginErrorMessage",0)
-    hide()
+    // let hide = showErrorMessage("loginErrorMessage",0)
+    // hide()
     
   },[])
 
   React.useEffect(() => {
-    localStorage.getItem("token") && history.push("/dashboard");
+    localStorage.getItem("token") && history.push("/user");
     console.log("loginError)_____", loginError);
     if(loginError)  showErrorMessage(loginErrorMessage) 
 
     if(loginStatus) {
       showSuccessMessage("Login Successful")
       localStorage.setItem("token", userProfile.token);
-      history.push("/dashboard");
+      history.push("/user");
     }
   } , [loginStatus, loginError])
 

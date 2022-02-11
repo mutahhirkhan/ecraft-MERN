@@ -148,7 +148,7 @@ class FixedPlugin extends Component {
                 <img src={imagine4} alt="..." />
               </a>
             </li>
-
+{/* 
             <li className="button-container">
               <div className="button-container">
                 <Button
@@ -210,7 +210,7 @@ class FixedPlugin extends Component {
                 namespace="creativetimofficial"
                 repo="material-dashboard-react-nodejs"
               />
-            </li>
+            </li> */}
           </ul>
         </div>
       </div>

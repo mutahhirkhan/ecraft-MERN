@@ -7,7 +7,9 @@
   }
   
   .image {
-    width: 350px;
+    width: 100%;
+    object-fit: cover;
+    /* width: 350px; */
     height: 350px;
     border-radius: 10px;
   }

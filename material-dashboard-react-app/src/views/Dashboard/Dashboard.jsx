@@ -128,7 +128,7 @@ const Dashboard = ({classes}) => {
                         </Card>
                     </GridItem>
                 </GridContainer>
-                <GridContainer>
+                <GridContainer style={{width: "100%"}}>
                    
                     <ArtCard arts={arts} classes={classes}/>
 
